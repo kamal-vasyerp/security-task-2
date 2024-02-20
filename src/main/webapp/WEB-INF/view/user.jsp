@@ -31,6 +31,6 @@ a:link , a:visited{
 </head>
 <body>
 		<h1>User Page</h1>
-		<a href = "/security/api/v2/visitor" class="link1">To Visitor Page</a>
+		<a href = "/security/api/v3/visitor" class="link1">To Visitor Page</a>
 </body>
 </html>

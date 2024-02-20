@@ -19,11 +19,11 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler{
 			Authentication authentication) throws IOException, ServletException {
 
 		if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_"+RoleConstants.ADMIN))) {
-			response.sendRedirect("/security/api/v2/admin");
+			response.sendRedirect("/security/api/v3/admin");
 		}else if(authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_"+RoleConstants.USER))) {
-			response.sendRedirect("/security/api/v2/user");
+			response.sendRedirect("/security/api/v3/user");
 		}else{
-			response.sendRedirect("/security/api/v2/visitor");
+			response.sendRedirect("/security/api/v3/visitor");
 		}
 	}
 
