@@ -41,9 +41,18 @@ a:link, a:visited {
 </style>
 </head>
 <body>
-	<h1>My Application </h1><br>
+	<h1>Please choose a Dashboard</h1><br>
 	<br>
-			<a href="/security/api/v3/signup-page" class="link1"> Sign up</a> 
-			<a href="/login" class="link2"> login </a>
+	
+	<form action="/security/api/v3/admin" method="post">
+		<input type="hidden" name ="token" value="${token}"/>
+		<input type="hidden" name ="user" value="${user}"/>
+		<button type="submit">Admin</button>
+	</form>
+	<form action="/security/api/v3/user" method="post">
+		<input type="hidden" name="token" value="${token}" /> <input
+			type="hidden" name="user" value="${user}" />
+		<button type="submit">User</button>
+	</form>
 </body>
 </html>

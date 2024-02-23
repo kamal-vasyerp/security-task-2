@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Sign up Page</title>
+<title>login Page</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -34,12 +34,12 @@ body {
 </style>
 </head>
 <body>
-<h1> Sign Up Here!!</h1>
+<h1> Login Here!!</h1>
 <br>
 <br>
 	<div class="card" style="width: 600px; height: 350px">
 		<div class="card-body">
-			<form action="/security/api/v3/auth/register" method="post">
+			<form action="/security/api/v3/auth/authentication" method="post">
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control" id="userName"
 						name="userName" placeholder="Username"> <label
@@ -56,5 +56,6 @@ body {
 			</form>
 		</div>
 	</div>
+	
 </body>
 </html>

@@ -4,43 +4,42 @@ package com.practise.securitytasktwo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.practise.securitytasktwo.constants.RoleConstants;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+	
+	private final JwtAuthenticationFilter jwtAuthFilter;
+	private final AuthenticationProvider authenticationProvider;
 	
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		http
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests((request) -> {
-		request.requestMatchers("security/api/v3/home").permitAll()
-		.requestMatchers("security/api/v3/admin").hasRole(RoleConstants.ADMIN)
-		.requestMatchers("/security/api/v3/user").hasAnyRole(RoleConstants.ADMIN,RoleConstants.USER)
-		.requestMatchers("/security/api/v3/visitor").hasAnyRole(RoleConstants.ADMIN,RoleConstants.USER ,RoleConstants.VISITOR)
-		.anyRequest()
-		.permitAll();
+			request
+		.requestMatchers("/security/api/v3/visitor").permitAll()
+		.anyRequest().permitAll();
 		})
-		.httpBasic(Customizer.withDefaults())
-		.formLogin((formLogin) ->
-			formLogin
-				.successHandler(authenticationSuccessHandler())
-		);
+		.sessionManagement(session ->
+			session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		)
+		.authenticationProvider(authenticationProvider)
+		.addFilterBefore(jwtAuthFilter,UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 		
 	}
-	
-	@Bean
-	AuthenticationSuccessHandler authenticationSuccessHandler() {
-		return new CustomSuccessHandler();
-	}
-	
+
 }
